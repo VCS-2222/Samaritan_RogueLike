@@ -18,7 +18,6 @@ public class Shop : MonoBehaviour
     public Button B2;
     public Button B3;
     public Button B4;
-    public Button B5;
     public Button B6;
 
     private void Start()
@@ -91,16 +90,6 @@ public class Shop : MonoBehaviour
             B4.interactable = false;
             currentMana -= 80;
             ps.canBlock = true;
-        }
-    }
-
-    public void UnlockAAA()
-    {
-        if(currentMana >= 100)
-        {
-            B5.interactable = false;
-            currentMana -= 100;
-            ps.canAIR = true;
         }
     }
 
