@@ -50,7 +50,7 @@ public class Shop : MonoBehaviour
 
     public void AddMana()
     {
-        currentMana += 100;
+        currentMana += 4;
     }
 
     public void Unlock3AA()

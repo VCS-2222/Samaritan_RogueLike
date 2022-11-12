@@ -15,7 +15,7 @@ public class LevelTimer : MonoBehaviour
     {
         if(ps.isDead)
         {
-            stopTimer = false;
+            stopTimer = true;
         }
 
         if(!stopTimer)
@@ -25,6 +25,7 @@ public class LevelTimer : MonoBehaviour
         else
         {
             finalTime = time;
+            PlayerPrefs.SetFloat("HighTime", finalTime);
         }
 
         timerText.text = time.ToString("0");

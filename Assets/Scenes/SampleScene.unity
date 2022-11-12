@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 12527431}
   m_Layer: 3
   m_Name: Skel
-  m_TagString: Untagged
+  m_TagString: Skel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -397,6 +397,7 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 128
+  playerScript: {fileID: 0}
   states: 1
 --- !u!50 &12527429
 Rigidbody2D:
@@ -1903,6 +1904,7 @@ MonoBehaviour:
   attackRange: 0.3
   attackPoint: {fileID: 1836693793}
   isDead: 0
+  capcal: {fileID: 245031094}
   state: 0
 --- !u!4 &245031093
 Transform:
@@ -8318,6 +8320,7 @@ MonoBehaviour:
   stopTimer: 0
   finalTime: 0
   timerText: {fileID: 548340728}
+  ps: {fileID: 245031092}
 --- !u!4 &1370017848
 Transform:
   m_ObjectHideFlags: 0

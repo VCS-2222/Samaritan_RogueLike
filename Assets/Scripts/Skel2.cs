@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class FinalSkel : MonoBehaviour
+public class Skel2 : MonoBehaviour
 {
     [Header("Vars")]
     public float currentSpeed;
@@ -18,13 +17,10 @@ public class FinalSkel : MonoBehaviour
     public bool canSeePlayer;
     public LayerMask playerMask;
     public PlayerScript playerScript;
-    public bool isdead = false;
 
     [Header("Health")]
     public int curHel;
     public int maxHel;
-    public Slider slider;
-    public CapsuleCollider2D capsuleCollider;
 
     public SkelStates states;
     public enum SkelStates
@@ -36,8 +32,6 @@ public class FinalSkel : MonoBehaviour
 
     private void Start()
     {
-        rb.isKinematic = false;
-        capsuleCollider.enabled = true;
         playerScript = FindObjectOfType<PlayerScript>();
         states = SkelStates.walking;
         curHel = maxHel;
@@ -45,18 +39,12 @@ public class FinalSkel : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isdead)
-            return;
         Movement();
         CheckRot();
     }
 
     private void Update()
     {
-        SetSliderHealth();
-        if (isdead)
-            return;
-
         LayerMask mask = LayerMask.GetMask("Ground");
 
         RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.right, 0.1f, mask);
@@ -78,20 +66,11 @@ public class FinalSkel : MonoBehaviour
         }
     }
 
-    public void SetSliderHealth()
-    {
-        slider.maxValue = maxHel;
-        slider.value = curHel;
-    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (isdead)
-            return;
-
         if (collision.tag == "Player")
         {
-            animator.SetInteger("AttackIndex", Random.Range(0, 2));
             canSeePlayer = true;
             StartCoroutine(attack());
         }
@@ -115,27 +94,16 @@ public class FinalSkel : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(attackPoint.position, 0.5f);
+        Gizmos.DrawSphere(attackPoint.position, 0.3f);
     }
 
     public void AttackPlayer()
     {
-        Collider2D[] checkFront2 = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, playerMask);
+        Collider2D[] checkFront2 = Physics2D.OverlapCircleAll(attackPoint.position, 0.3f, playerMask);
         foreach (Collider2D col in checkFront2)
         {
             col.GetComponent<PlayerScript>().TakeDamage(1);
         }
-    }
-
-    IEnumerator patrol()
-    {
-        yield return new WaitForSeconds(4f);
-
-        states = SkelStates.idle;
-
-        yield return new WaitForSeconds(4f);
-
-        states = SkelStates.walking;
     }
 
     void Movement()
@@ -171,11 +139,8 @@ public class FinalSkel : MonoBehaviour
 
         if (curHel <= 0)
         {
-            animator.Play("Skel_dead");
-            rb.isKinematic = true;
-            capsuleCollider.enabled = false;
-
-            isdead = true;
+            playerScript.AddHealth(3);
+            Destroy(gameObject);
         }
     }
 }

@@ -33,7 +33,10 @@ public class FinalBossGoonSpawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene("EndCutscene");
+        if(collision.tag == "Player") 
+        {
+            SceneManager.LoadScene("EndCutscene");
+        }
     }
 
     IEnumerator fight()

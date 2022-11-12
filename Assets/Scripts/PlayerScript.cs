@@ -93,9 +93,9 @@ public class PlayerScript : MonoBehaviour
         if (isDead)
         {
             this.tag = "Untagged";
+            animator.Play("Player_death");
             rb.simulated = false;
             capcal.enabled = false;
-            animator.Play("Player_death");
         }
 
         SetSliderHealth();
@@ -288,6 +288,11 @@ public class PlayerScript : MonoBehaviour
             {
                 hit.GetComponent<Skel>().TakeDamage(attackDam);
             }
+
+            if(hit.gameObject.tag == "Skel2")
+            {
+                hit.GetComponent<Skel2>().TakeDamage(attackDam);
+            }
             
             if(hit.gameObject.tag == "FinalSkel")
             {
@@ -412,13 +417,13 @@ public class PlayerScript : MonoBehaviour
     IEnumerator rolling()
     {
         state = PlayerStates.roll;
-        rb.AddForce(transform.right * 1.2f, ForceMode2D.Impulse);
+        rb.AddForce(transform.right * 3f, ForceMode2D.Impulse);
         Physics2D.IgnoreLayerCollision(3, 7, true);
         canTakeDamage = false;
         isRolling = true;
         canJump = false;
 
-        yield return new WaitForSeconds(1.2f); 
+        yield return new WaitForSeconds(1.4f); 
 
         canTakeDamage = true;
         isRolling = false;
